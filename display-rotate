@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⣠⣄⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⡠⠖⣿⣧⢻⣿⢿⣷⣤⡀⠄⠀⠀⠀display-rotate
+#⠀⠀⠀⠀⣠⠊⠀⠂⣿⡏⣾⣿⠈⢻⠟⠉⠀⠀⠀⠀--------------
+#⠀⠀⠀⢸⣿⠀⠀⢰⣿⣷⢻⣿⠴⣿⣷⣦⡀⠀⠀⠀Switch the main display between vertical and horizontal.
+#⠀⠀⠀⣿⣿⡄⠀⡇⣿⣧⣿⣿⠀⠈⢿⣿⡇⠀⠀⠀
+#⠀⠀⠀⠈⢿⣿⣦⣱⠃⠀⣿⠟⠁⠀⠀⡿⠃⠀⠀⠀Only meant to be used on Foxes, since she has the fancy
+#⠀⠀⠀⠀⠀⠙⢿⣿⣿⣶⣧⣤⣤⡤⠚⠁⠀⠀⠀⠀rotating main display.
+#⠀⠀⠀⠀⠀⠀⠀⠌⠉⠛⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀
+#
+# -----------------------------------------------------------------------------
+
+case $HOSTNAME in
+	foxes)
+		if xrandr -q | grep "HDMI-2" | grep "1920x1200"
+		then
+			echo "Switching display to vertical." && \
+			notify-send "display-rotate" "Switching display to vertical." && \
+			xrandr --output HDMI-2 --rotate left
+		else
+			echo "Switching display to horizontal."  && \
+			notify-send "display-rotate" "Switching display to horizontal."  && \
+			xrandr --output HDMI-2 --rotate normal
+		fi
+		;;
+	*)
+		notify-send "display-rotate" "Display rotation is meant to be used on Foxes."
+		;;
+esac

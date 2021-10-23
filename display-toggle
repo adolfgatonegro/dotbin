@@ -1,0 +1,51 @@
+#!/bin/bash
+#
+# ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⣠⣄⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⡠⠖⣿⣧⢻⣿⢿⣷⣤⡀⠄⠀⠀⠀display-toggle
+#⠀⠀⠀⠀⣠⠊⠀⠂⣿⡏⣾⣿⠈⢻⠟⠉⠀⠀⠀⠀--------------
+#⠀⠀⠀⢸⣿⠀⠀⢰⣿⣷⢻⣿⠴⣿⣷⣦⡀⠀⠀⠀Toggle the secondary display.
+#⠀⠀⠀⣿⣿⡄⠀⡇⣿⣧⣿⣿⠀⠈⢿⣿⡇⠀⠀⠀
+#⠀⠀⠀⠈⢿⣿⣦⣱⠃⠀⣿⠟⠁⠀⠀⡿⠃⠀⠀⠀Requires $HOSTNAME to be set so the proper display
+#⠀⠀⠀⠀⠀⠙⢿⣿⣿⣶⣧⣤⣤⡤⠚⠁⠀⠀⠀⠀values can be used.
+#⠀⠀⠀⠀⠀⠀⠀⠌⠉⠛⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀
+#
+# -----------------------------------------------------------------------------
+
+case $HOSTNAME in
+	foxes)
+		disp1="HDMI-2"
+		disp2="DP-1"
+		res1="1920x1200"
+		res2="1920x1080"
+		rate1="74.93"
+		rate2="60"
+		pos1="0x1800"
+		pos2="960x0"
+		;;
+	hekate)
+		disp1="eDP"
+		disp2="HDMI-A-0"
+		res1="1366x768"
+		res2="1680x1050"
+		rate1="60"
+		rate2="60"
+		pos1="1680x282"
+		pos2="0x0"
+		;;
+esac
+
+if xrandr --listactivemonitors | grep "$disp2"
+then
+	notify-send "display-toggle" "Switching off the second display." && \
+	echo "Switching off the second display." && \
+	xrandr --output $disp2 --off \
+	--output $disp1 --mode $res1 --rate $rate1 --pos 0x0 && \
+	nitrogen --random --set-zoom-fill --save
+else
+	notify-send "display-toggle" "Extending desktop to second display." && \
+	echo "Extending desktop to second display." && \
+	xrandr --output $disp2 --mode $res2 --rate $rate2 --pos $pos2 \
+	--output $disp1 --mode $res1 --rate $rate1 --pos $pos1 && \
+	echo -n --head=0,--head=1 | xargs -n 1 -d , \
+	nitrogen --random --set-zoom-fill --save
+fi
