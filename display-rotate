@@ -11,20 +11,28 @@
 #
 # -----------------------------------------------------------------------------
 
+headline="Rotating display"
+icon="computer"
+messagev="Switching to vertical display."
+messageh="Switching to horizontal display."
+messageerror="Display rotation is meant to be used on Foxes."
+
 case $HOSTNAME in
 	foxes)
-		if xrandr -q | grep "HDMI-2" | grep "1920x1200"
-		then
-			echo "Switching display to vertical." && \
-			notify-send "display-rotate" "Switching display to vertical." && \
+		xrandr -q | grep "HDMI-2" | grep "1920x1200"
+		if [ $? -eq 0 ]; then
+			echo "Switching display to vertical."
+			notify-send -i "$icon" "$headline" "$messagev"
+			sleep 1s
 			xrandr --output HDMI-2 --rotate left
 		else
-			echo "Switching display to horizontal."  && \
-			notify-send "display-rotate" "Switching display to horizontal."  && \
+			echo "Switching display to horizontal."
+			notify-send -i "$icon" "$headline" "$messageh"
+			sleep 1s
 			xrandr --output HDMI-2 --rotate normal
 		fi
 		;;
 	*)
-		notify-send "display-rotate" "Display rotation is meant to be used on Foxes."
+		notify-send -i "$icon" "$headline" "$messageerror"
 		;;
 esac

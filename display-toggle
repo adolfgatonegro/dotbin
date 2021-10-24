@@ -11,6 +11,11 @@
 #
 # -----------------------------------------------------------------------------
 
+headline="Secondary display"
+icon="computer"
+messageoff="Switching off the secondary display."
+messageon="Extending desktop to secondary display."
+
 case $HOSTNAME in
 	foxes)
 		disp1="HDMI-2"
@@ -19,7 +24,7 @@ case $HOSTNAME in
 		res2="1920x1080"
 		rate1="74.93"
 		rate2="60"
-		pos1="0x1800"
+		pos1="0x1080"
 		pos2="960x0"
 		;;
 	hekate)
@@ -34,18 +39,21 @@ case $HOSTNAME in
 		;;
 esac
 
-if xrandr --listactivemonitors | grep "$disp2"
-then
-	notify-send "display-toggle" "Switching off the second display." && \
-	echo "Switching off the second display." && \
+xrandr --listactivemonitors | grep "$disp2"
+if [ $? -eq 0 ]; then
+	notify-send -i "$icon" "$headline" "$messageoff"
+	echo "$messageoff"
+	sleep 1s
 	xrandr --output $disp2 --off \
-	--output $disp1 --mode $res1 --rate $rate1 --pos 0x0 && \
+		--output $disp1 --mode $res1 --rate $rate1 --pos 0x0
+	echo -n --head=0,--head=1 | xargs -n 1 -d , \
 	nitrogen --random --set-zoom-fill --save
 else
-	notify-send "display-toggle" "Extending desktop to second display." && \
-	echo "Extending desktop to second display." && \
+	notify-send -i "$icon" "$headline" "$messageon"
+	echo "$messageon"
+	sleep 1s
 	xrandr --output $disp2 --mode $res2 --rate $rate2 --pos $pos2 \
-	--output $disp1 --mode $res1 --rate $rate1 --pos $pos1 && \
+		--output $disp1 --mode $res1 --rate $rate1 --pos $pos1
 	echo -n --head=0,--head=1 | xargs -n 1 -d , \
 	nitrogen --random --set-zoom-fill --save
 fi
