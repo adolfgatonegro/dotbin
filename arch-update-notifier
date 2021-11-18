@@ -1,6 +1,6 @@
 #!/bin/bash
 
-updates=$(checkupdates)
+updates=$(checkupdates | awk '{print $1 " (" $4 ")"}')
 
 if [ -z "$updates" ]
 then 
