@@ -31,6 +31,3 @@ else
     dunstify -a "volume-ctrl" -u low -i audio-volume-high -r "$msgId" \
     -h int:value:"$volume" "Volume: ${volume}%"
 fi
-
-# Play the volume changed sound
-# canberra-gtk-play -i audio-volume-change -d "changeVolume"
