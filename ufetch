@@ -73,7 +73,6 @@ c1="${reset}${blue}"               # first color
 ## OUTPUT
 
 cat <<EOF
-
 ${c0}          . 
 ${c0}         / \\          ${lc}  ${ic}${host}${reset}
 ${c0}        /   \\         ${lc}  ${ic}${kernel}${reset}
