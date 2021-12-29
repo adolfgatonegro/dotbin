@@ -46,6 +46,7 @@ if [ $? -eq 0 ]; then
 	sleep 1s
 	xrandr --output $disp2 --off \
 		--output $disp1 --mode $res1 --rate $rate1 --pos 0x0
+	qtile cmd-obj -o cmd -f restart
 	echo -n --head=0,--head=1 | xargs -n 1 -d , \
 	nitrogen --random --set-zoom-fill --save
 else
@@ -54,6 +55,9 @@ else
 	sleep 1s
 	xrandr --output $disp2 --mode $res2 --rate $rate2 --pos $pos2 \
 		--output $disp1 --mode $res1 --rate $rate1 --pos $pos1
+	qtile cmd-obj -o cmd -f restart
 	echo -n --head=0,--head=1 | xargs -n 1 -d , \
 	nitrogen --random --set-zoom-fill --save
 fi
+
+# qtile cmd-obj -o cmd -f restart

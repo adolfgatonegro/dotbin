@@ -25,11 +25,13 @@ case $HOSTNAME in
 			notify-send -i "$icon" "$headline" "$messagev"
 			sleep 1s
 			xrandr --output HDMI-2 --rotate left
+			qtile cmd-obj -o cmd -f restart
 		else
 			echo "Switching display to horizontal."
 			notify-send -i "$icon" "$headline" "$messageh"
 			sleep 1s
 			xrandr --output HDMI-2 --rotate normal
+			qtile cmd-obj -o cmd -f restart
 		fi
 		;;
 	*)
