@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# rofi-virtualbox: manage virtualbox machines with rofi
+# Originally by Oliver Kraitschy <okraits@arcor.de> (https://github.com/okraits/rofi-tools)
+# With modifications by Alexander Pushkov <hey@ale.sh>
+# And more modifications by Gatonegro <gatoneg.ro>
+
+OPTIONS="Start machine\nStart headless\nSend ACPI shutdown signal\nPower off\nClone machine\nDelete machine"
+
+kb_start="Control-Return"
+
+args=(
+    -dmenu
+    -kb-custom-1 "${kb_start}"
+    -kb-accept-custom ""
+)
+
+while true; do
+    # select machine to control
+    vm=$(VBoxManage list vms | awk -F '"' '{print $2}' | rofi "${args[@]}" -p "Select machine:")
+    rofi_exit=$?
+    if [[ $rofi_exit -eq 1 ]]; then
+        exit
+    fi
+
+    case "${rofi_exit}" in
+    0) # default
+        # just pass through to the menu
+        ;;
+    10) # -kb-custom-1
+        VBoxManage startvm "$vm"
+        exit
+        ;;
+    esac
+
+    # select action to be executed
+    option=$(echo -e $OPTIONS | rofi "${args[@]}" -p "Select action:")
+    rofi_exit=$?
+    if [[ $rofi_exit -eq 1 ]]; then
+        exit
+    fi
+
+    case "$option" in
+    "Start machine")
+        VBoxManage startvm "$vm"
+        exit
+        ;;
+    "Start headless")
+        VBoxManage startvm "$vm" --type headless
+        ;;
+    "Send ACPI shutdown signal")
+        VBoxManage controlvm "$vm" acpipowerbutton --type headless
+        ;;
+    "Power off")
+        VBoxManage controlvm "$vm" poweroff --type headless
+        ;;
+    "Clone machine")
+        VBoxManage clonevm "$vm" --mode machine --register --options keepallmacs
+        ;;
+    "Delete machine")
+        VBoxManage unregistervm "$vm" --delete
+        ;;
+    *)
+        exit 1
+        ;;
+    esac
+done
