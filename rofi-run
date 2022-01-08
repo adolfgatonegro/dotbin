@@ -2,7 +2,7 @@
 # ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⣠⣄⠀⠀⠀⠀⠀⠀
 #⠀⠀⠀⠀⠀⠀⡠⠖⣿⣧⢻⣿⢿⣷⣤⡀⠄⠀⠀⠀
 #⠀⠀⠀⠀⣠⠊⠀⠂⣿⡏⣾⣿⠈⢻⠟⠉⠀⠀⠀⠀rofi-run
-#⠀⠀⠀⢸⣿⠀⠀⢰⣿⣷⢻⣿⠴⣿⣷⣦⡀⠀⠀⠀--------------
+#⠀⠀⠀⢸⣿⠀⠀⢰⣿⣷⢻⣿⠴⣿⣷⣦⡀⠀⠀⠀--------
 #⠀⠀⠀⣿⣿⡄⠀⡇⣿⣧⣿⣿⠀⠈⢿⣿⡇⠀⠀⠀All-in-one (mostly) rofi script, based on the script
 #⠀⠀⠀⠈⢿⣿⣦⣱⠃⠀⣿⠟⠁⠀⠀⡿⠃⠀⠀⠀included in ArchLabs
 #⠀⠀⠀⠀⠀⠙⢿⣿⣿⣶⣧⣤⣤⡤⠚⠁⠀⠀⠀
@@ -99,7 +99,6 @@ else
 					*Reboot) systemctl reboot ;;
 					*Suspend) systemctl suspend ;;
 					*Log\ out) loginctl terminate-session $XDG_SESSION_ID ;;
-					# *Logout) session-logout >/dev/null 2>&1 || pkill -15 -t tty"$XDG_VTNR" Xorg ;;
 				esac
 				;;
 			*)

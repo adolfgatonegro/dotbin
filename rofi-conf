@@ -1,0 +1,44 @@
+#!/bin/bash
+# ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⣠⣄⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⡠⠖⣿⣧⢻⣿⢿⣷⣤⡀⠄⠀⠀⠀
+#⠀⠀⠀⠀⣠⠊⠀⠂⣿⡏⣾⣿⠈⢻⠟⠉⠀⠀⠀⠀rofi-conf
+#⠀⠀⠀⢸⣿⠀⠀⢰⣿⣷⢻⣿⠴⣿⣷⣦⡀⠀⠀⠀---------
+#⠀⠀⠀⣿⣿⡄⠀⡇⣿⣧⣿⣿⠀⠈⢿⣿⡇⠀⠀⠀Script to quickly edit a config file
+#⠀⠀⠀⠈⢿⣿⣦⣱⠃⠀⣿⠟⠁⠀⠀⡿⠃⠀⠀⠀
+#⠀⠀⠀⠀⠀⠙⢿⣿⣿⣶⣧⣤⣤⡤⠚⠁⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⠌⠉⠛⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀
+
+declare -a options=(
+	"dunst - $XDG_CONFIG_HOME/dunst/dunstrc"
+	"git - $XDG_CONFIG_HOME/git/config"
+	"kitty - $XDG_CONFIG_HOME/kitty/kitty.conf"
+	"neovim - $XDG_CONFIG_HOME/nvim/init.vim"
+	"picom - $XDG_CONFIG_HOME/picom/picom.conf"
+	"qtile autostart - $XDG_CONFIG_HOME/qtile/scripts/autostart.sh"
+	"qtile config - $XDG_CONFIG_HOME/qtile/config.py"
+	"qtile groups - $XDG_CONFIG_HOME/qtile/groups.py"
+	"qtile hooks - $XDG_CONFIG_HOME/qtile/hooks.py"
+	"qtile keys - $XDG_CONFIG_HOME/qtile/keys.py"
+	"qtile layouts - $XDG_CONFIG_HOME/qtile/layouts.py"
+	"qtile screens - $XDG_CONFIG_HOME/qtile/screens.py"
+	"rofi - $XDG_CONFIG_HOME/rofi/config.rasi"
+	"sxhkd - $XDG_CONFIG_HOME/sxhkd/sxhkdrc"
+	"vifm - $XDG_CONFIG_HOME/vifm/vifmrc"
+	"X11 xinitrc - $XDG_CONFIG_HOME/X11/xinitrc"
+	"X11 xprofile - $XDG_CONFIG_HOME/X11/xprofile"
+	"zsh aliases - $XDG_CONFIG_HOME/zsh/zaliases"
+	"zsh config - $XDG_CONFIG_HOME/zsh/.zshrc"
+	"zsh environment - $HOME/.zshenv"
+	"zsh history - $XDG_CONFIG_HOME/zsh/zsh_history"
+	"zsh profile - $XDG_CONFIG_HOME/zsh/.zprofile"
+)
+
+choice=$(printf '%s\n' "${options[@]}" | rofi -i -dmenu -l 10 -p 'Edit config:')
+
+if [ "$choice" ]; then
+	cfg=$(printf '%s\n' "${choice}" | awk '{print $NF}')
+	kitty -e nvim "$cfg"
+
+else
+	echo "Program terminated." && exit 1
+fi
