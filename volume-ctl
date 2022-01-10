@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⣠⣄⠀⠀⠀⠀⠀⠀
-#⠀⠀⠀⠀⠀⠀⡠⠖⣿⣧⢻⣿⢿⣷⣤⡀⠄⠀⠀⠀volume-ctrl
+#⠀⠀⠀⠀⠀⠀⡠⠖⣿⣧⢻⣿⢿⣷⣤⡀⠄⠀⠀⠀volume-ctl
 #⠀⠀⠀⠀⣠⠊⠀⠂⣿⡏⣾⣿⠈⢻⠟⠉⠀⠀⠀⠀-----------
 #⠀⠀⠀⢸⣿⠀⠀⢰⣿⣷⢻⣿⠴⣿⣷⣦⡀⠀⠀⠀Volume control with desktop notifications using Dunst.
 #⠀⠀⠀⣿⣿⡄⠀⡇⣿⣧⣿⣿⠀⠈⢿⣿⡇⠀⠀⠀
@@ -25,7 +25,7 @@ mute="$(pamixer --get-mute)"
 # mute="$(amixer get Master | tail -1 | awk '{print $6}' | sed 's/[^a-z]*//g')"
 if [[ $volume == 0 || "$mute" == "true" ]]; then
     # Show the sound muted notification
-    dunstify -a "volume-ctrl" -u low -i audio-volume-muted -r "$msgId" "Volume muted" 
+    dunstify -a "volume-ctl" -u low -i audio-volume-muted -r "$msgId" "Volume muted" 
 else
     # Show the volume notification
     dunstify -a "volume-ctrl" -u low -i audio-volume-high -r "$msgId" \
