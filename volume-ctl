@@ -28,6 +28,6 @@ if [[ $volume == 0 || "$mute" == "true" ]]; then
     dunstify -a "volume-ctl" -u low -i audio-volume-muted -r "$msgId" "Volume muted" 
 else
     # Show the volume notification
-    dunstify -a "volume-ctrl" -u low -i audio-volume-high -r "$msgId" \
+    dunstify -a "volume-ctl" -u low -i audio-volume-high -r "$msgId" \
     -h int:value:"$volume" "Volume: ${volume}%"
 fi
