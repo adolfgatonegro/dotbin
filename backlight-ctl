@@ -1,0 +1,18 @@
+#!/bin/bash
+# ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⣠⣄⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⡠⠖⣿⣧⢻⣿⢿⣷⣤⡀⠄⠀⠀⠀backlight-ctl
+#⠀⠀⠀⠀⣠⠊⠀⠂⣿⡏⣾⣿⠈⢻⠟⠉⠀⠀⠀⠀-----------
+#⠀⠀⠀⢸⣿⠀⠀⢰⣿⣷⢻⣿⠴⣿⣷⣦⡀⠀⠀⠀Volume control with desktop notifications using Dunst.
+#⠀⠀⠀⣿⣿⡄⠀⡇⣿⣧⣿⣿⠀⠈⢿⣿⡇⠀⠀⠀
+#⠀⠀⠀⠈⢿⣿⣦⣱⠃⠀⣿⠟⠁⠀⠀⡿⠃⠀⠀⠀Made for PulseAudio, but as long as amixer is working
+#⠀⠀⠀⠀⠀⠙⢿⣿⣿⣶⣧⣤⣤⡤⠚⠁⠀⠀⠀⠀it should work with PipeWire as well. Adapted from an
+#⠀⠀⠀⠀⠀⠀⠀⠌⠉⠛⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀ArchWiki example.
+#
+
+msgId="999666"
+
+xbacklight $@
+
+brightness="$(xbacklight -get | awk '{ printf "%d",$1 }')"
+
+dunstify -a "backlight-ctl" -u low -i video-display -r "$msgId" -h int:value:"$brightness" "Brightness: ${brightness}%"
