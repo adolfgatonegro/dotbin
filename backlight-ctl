@@ -15,4 +15,4 @@ xbacklight $@
 
 brightness="$(xbacklight -get | awk '{ printf "%d",$1 }')"
 
-dunstify -a "backlight-ctl" -u low -i video-display -r "$msgId" -h int:value:"$brightness" "Brightness: ${brightness}%"
+dunstify -a "backlight-ctl" -u low -i video-display -r "$msgId" -h int:value:"$brightness" "Brightness" "Brightness is at ${brightness}%"
