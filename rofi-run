@@ -57,10 +57,10 @@ else
 				usage
 				exit 0
 				;;
-			# -v|--version)
-			# 	echo -e "$NAME -- Version $VER"
-			# 	exit 0
-			# 	;;
+			-v|--version)
+				echo -e "$NAME -- Version $VER"
+				exit 0
+				;;
 			-d|--drun)
 				rofi -i -show drun "${OPTS[@]}"
 				;;
@@ -77,10 +77,6 @@ else
 			-c|--calculator)
 				hash qalc >/dev/null 2>&1 || { echo "Requires 'libqalculate' installed"; exit 1; }
 				rofi -i -show calc "${OPTS[@]}"
-				;;
-			-v|--virtualbox)
-				hash vboxmanage >/dev/null 2>&1 || { echo "Requires 'VirtualBox' installed"; exit 1; }
-				rofi-virtualbox
 				;;
 			# -c|--clipboard)
 			# 	hash greenclip >/dev/null 2>&1 || { echo "Requires 'greenclip' installed"; exit 1; }
