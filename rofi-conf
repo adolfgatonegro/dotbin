@@ -31,10 +31,10 @@ declare -a options=(
 	"vifm - $XDG_CONFIG_HOME/vifm/vifmrc"
 	"x11 xinitrc - $XDG_CONFIG_HOME/X11/xinitrc"
 	"x11 xprofile - $XDG_CONFIG_HOME/X11/xprofile"
-	"zsh aliases - $XDG_CONFIG_HOME/zsh/zaliases"
+	"zsh aliases - $XDG_CONFIG_HOME/zsh/zsh-aliases"
 	"zsh config - $XDG_CONFIG_HOME/zsh/.zshrc"
 	"zsh environment - $HOME/.zshenv"
-	"zsh history - $XDG_CONFIG_HOME/zsh/zsh_history"
+	"zsh history - $XDG_CONFIG_HOME/zsh/zsh-hist"
 	"zsh profile - $XDG_CONFIG_HOME/zsh/.zprofile"
 )
 
