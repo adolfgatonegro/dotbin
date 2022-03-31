@@ -1,12 +1,11 @@
-#!/bin/bash
-# ⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⣠⣄⠀⠀⠀⠀⠀⠀
-#⠀⠀⠀⠀⠀⠀⡠⠖⣿⣧⢻⣿⢿⣷⣤⡀⠄⠀⠀⠀
-#⠀⠀⠀⠀⣠⠊⠀⠂⣿⡏⣾⣿⠈⢻⠟⠉⠀⠀⠀⠀rofi-conf
-#⠀⠀⠀⢸⣿⠀⠀⢰⣿⣷⢻⣿⠴⣿⣷⣦⡀⠀⠀⠀---------
-#⠀⠀⠀⣿⣿⡄⠀⡇⣿⣧⣿⣿⠀⠈⢿⣿⡇⠀⠀⠀Script to quickly edit a config file
-#⠀⠀⠀⠈⢿⣿⣦⣱⠃⠀⣿⠟⠁⠀⠀⡿⠃⠀⠀⠀
-#⠀⠀⠀⠀⠀⠙⢿⣿⣿⣶⣧⣤⣤⡤⠚⠁⠀⠀⠀⠀
-#⠀⠀⠀⠀⠀⠀⠀⠌⠉⠛⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀
+#!/usr/bin/env bash
+#------------------------------------------------------------------------------
+# rofi-conf
+# adolf@gatoneg.ro
+# https://github.com/adolfgatonegro
+#------------------------------------------------------------------------------
+# Shell script to access frequently-used config files through rofi
+#------------------------------------------------------------------------------ 
 
 declare -a options=(
 	"dunst - $XDG_CONFIG_HOME/dunst/dunstrc"
@@ -31,11 +30,12 @@ declare -a options=(
 	"vifm - $XDG_CONFIG_HOME/vifm/vifmrc"
 	"x11 xinitrc - $XDG_CONFIG_HOME/X11/xinitrc"
 	"x11 xprofile - $XDG_CONFIG_HOME/X11/xprofile"
-	"zsh aliases - $XDG_CONFIG_HOME/zsh/zsh-aliases"
-	"zsh config - $XDG_CONFIG_HOME/zsh/.zshrc"
+	"zsh aliases - $ZDOTDIR/zsh-aliases"
+	"zsh config - $ZDOTDIR/.zshrc"
 	"zsh environment - $HOME/.zshenv"
-	"zsh history - $XDG_CONFIG_HOME/zsh/zsh-hist"
-	"zsh profile - $XDG_CONFIG_HOME/zsh/.zprofile"
+	"zsh functions - $ZDOTDIR/zsh-functions"
+	"zsh history - $ZDOTDIR/zsh-hist"
+	"zsh profile - $ZDOTDIR/.zprofile"
 )
 
 choice=$(printf '%s\n' "${options[@]}" | rofi -i -dmenu -l 10 -p 'Edit config:')
@@ -45,5 +45,5 @@ if [ "$choice" ]; then
 	kitty -e nvim "$cfg"
 
 else
-	echo "Program terminated." && exit 1
+	exit 1
 fi
